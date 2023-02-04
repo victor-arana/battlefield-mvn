@@ -1,13 +1,12 @@
 package no.data;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        var grid = new Grid();
+        grid.readState();
+        grid.analizeState();
+        grid.print();
     }
 }
