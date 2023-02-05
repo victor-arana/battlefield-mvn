@@ -54,4 +54,12 @@ public class GridTest {
         grid.analizeState();
         assertEquals(GridState.O_WINS, grid.getState());
     }
+
+    @Test
+    public void state_should_be_draw() {
+        var grid = new Grid();
+        grid.parseState("XOXOOXXXO");
+        grid.analizeState();
+        assertEquals(GridState.DRAW, grid.getState());
+    }
 }

@@ -49,6 +49,8 @@ class Grid {
             this.state = GridState.X_WINS;
         } else if (!xWins && oWins && !gameIsNotFinished && !draw && !impossible) {
             this.state = GridState.O_WINS;
+        } else if (draw) {
+            this.state = GridState.DRAW;
         }
 
         System.out.println("X wins: " + xWins);
