@@ -49,7 +49,9 @@ class Grid {
             this.state = GridState.X_WINS;
         } else if (!xWins && oWins && !gameIsNotFinished && !draw && !impossible) {
             this.state = GridState.O_WINS;
-        } else if (draw) {
+        } else if (gameIsNotFinished) {
+            this.state = GridState.GAME_NOT_FINISHED;
+        }else if (draw) {
             this.state = GridState.DRAW;
         }
 

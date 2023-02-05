@@ -62,4 +62,12 @@ public class GridTest {
         grid.analizeState();
         assertEquals(GridState.DRAW, grid.getState());
     }
+
+    @Test
+    public void state_should_be_not_finished() {
+        var grid = new Grid();
+        grid.parseState("XO_OOX_X_");
+        grid.analizeState();
+        assertEquals(GridState.GAME_NOT_FINISHED, grid.getState());
+    }
 }
