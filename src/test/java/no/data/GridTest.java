@@ -46,4 +46,12 @@ public class GridTest {
         grid.analizeState();
         assertEquals(GridState.O_WINS, grid.getState());
     }
+
+    @Test
+    public void o_should_win_by_diagonal() {
+        var grid = new Grid();
+        grid.parseState("X_OXO_O_X");
+        grid.analizeState();
+        assertEquals(GridState.O_WINS, grid.getState());
+    }
 }
