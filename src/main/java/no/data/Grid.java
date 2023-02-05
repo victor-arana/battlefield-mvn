@@ -32,11 +32,15 @@ class Grid {
 
         // Test columns
         boolean xWinsByColumn = false;
-        boolean oWinsByColumn = false;
         for (int j = 0; j < grid[0].length; j++) {
             xWinsByColumn = testColumn(j, 1, grid);
+            if (xWinsByColumn) break;
+        }
+
+        boolean oWinsByColumn = false;
+        for (int j = 0; j < grid[0].length; j++) {
             oWinsByColumn  = testColumn(j, 0, grid);
-            if (xWinsByColumn || oWinsByColumn) break;
+            if (oWinsByColumn) break;
         }
 
         boolean xWins = xWinsByDiagonal || xWinsByRow || xWinsByColumn;
@@ -45,21 +49,18 @@ class Grid {
         boolean draw = !xWins && !oWins && !gridHasEmptyCells(grid);
         boolean impossible = xWins && oWins;
 
-        if (xWins && !oWins && !gameIsNotFinished && !draw && !impossible) {
+        if (impossible){
+            this.state = GridState.IMPOSSIBLE;
+        } else if (xWins && !oWins && !gameIsNotFinished && !draw && !impossible) {
             this.state = GridState.X_WINS;
         } else if (!xWins && oWins && !gameIsNotFinished && !draw && !impossible) {
             this.state = GridState.O_WINS;
         } else if (gameIsNotFinished) {
             this.state = GridState.GAME_NOT_FINISHED;
-        }else if (draw) {
+        } else if (draw) {
             this.state = GridState.DRAW;
         }
 
-        System.out.println("X wins: " + xWins);
-        System.out.println("O wins: " + oWins);
-        System.out.println("Game not finished: " + gameIsNotFinished);
-        System.out.println("Draw: " + draw);
-        System.out.println("Impossible: " + impossible);
     }
 
     boolean gridHasEmptyCells(Integer[][] grid){

@@ -70,4 +70,12 @@ public class GridTest {
         grid.analizeState();
         assertEquals(GridState.GAME_NOT_FINISHED, grid.getState());
     }
+
+    @Test
+    public void state_should_be_impossible() {
+        var grid = new Grid();
+        grid.parseState("XO_XO_XOX");
+        grid.analizeState();
+        assertEquals(GridState.IMPOSSIBLE ,grid.getState());
+    }
 }
