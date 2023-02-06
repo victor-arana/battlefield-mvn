@@ -16,6 +16,7 @@ class Grid {
         grid = new Integer[rows][columns];
     }
 
+
     void analizeState() {
         // Test diagonals
         boolean xWinsByDiagonal = testDiagonal(1,grid);
@@ -198,7 +199,7 @@ class Grid {
         }
     }
 
-    void print() {
+    void printState() {
         System.out.println("---------");
         for(int i = 0; i < grid.length; i++) {
             System.out.print("| ");
@@ -218,6 +219,27 @@ class Grid {
             System.out.printf("| %n");
         }
         System.out.println("---------");
+
+        String state = "";
+        // Print state
+        switch(getState()) {
+            case X_WINS:
+                state = "X wins";
+                break;
+            case O_WINS:
+                state = "O wins";
+                break;
+            case DRAW:
+                state = "Draw";
+                break;
+            case GAME_NOT_FINISHED:
+                state = "Game not finished";
+                break;
+            case IMPOSSIBLE:
+                state = "Impossible";
+                break;
+        }
+        System.out.println(state);
     }
 
     public GridState getState() {
