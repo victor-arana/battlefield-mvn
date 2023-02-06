@@ -47,7 +47,7 @@ class Grid {
         boolean oWins = oWinsByDiagonal || oWinsByRow || oWinsByColumn;
         boolean gameIsNotFinished = !xWins && !oWins && gridHasEmptyCells(grid);
         boolean draw = !xWins && !oWins && !gridHasEmptyCells(grid);
-        boolean impossible = xWins && oWins;
+        boolean impossible = (xWins && oWins) || thereAreMoreXthanOs() || thereAreMoreOthanXs() ;
 
         if (impossible){
             this.state = GridState.IMPOSSIBLE;
@@ -61,6 +61,37 @@ class Grid {
             this.state = GridState.DRAW;
         }
 
+    }
+
+    private boolean thereAreMoreOthanXs() {
+        return Math.abs(countO() - countX()) >= 2;
+    }
+
+    private boolean thereAreMoreXthanOs() {
+        return Math.abs(countX() - countO()) >= 2;
+    }
+
+    private int countO() {
+        int oCount = 0;
+        for(Integer[] row: grid) {
+            for(Integer slot: row) {
+                if (slot != null && slot.equals(0)) {
+                    oCount++;
+                }
+            }
+        }
+        return oCount;
+    }
+    private int countX() {
+        int xCount = 0;
+        for(Integer[] row: grid) {
+            for(Integer slot: row) {
+                if (slot != null && slot.equals(1)) {
+                    xCount++;
+                }
+            }
+        }
+        return xCount;
     }
 
     boolean gridHasEmptyCells(Integer[][] grid){

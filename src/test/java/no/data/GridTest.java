@@ -72,10 +72,27 @@ public class GridTest {
     }
 
     @Test
-    public void state_should_be_impossible() {
+    public void state_should_be_impossible_01() {
         var grid = new Grid();
         grid.parseState("XO_XO_XOX");
         grid.analizeState();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
+
+    @Test
+    public void state_should_be_impossible_02() {
+        var grid = new Grid();
+        grid.parseState("_OOOO_X_X");
+        grid.analizeState();
+        assertEquals(GridState.IMPOSSIBLE ,grid.getState());
+    }
+
+    @Test
+    public void state_should_be_impossible_03() {
+        var grid = new Grid();
+        grid.parseState("_O_X__X_X");
+        grid.analizeState();
+        assertEquals(GridState.IMPOSSIBLE ,grid.getState());
+    }
+
 }
