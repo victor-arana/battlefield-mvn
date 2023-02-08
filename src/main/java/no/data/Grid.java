@@ -22,13 +22,18 @@ class Grid {
         boolean xWinsByDiagonal = testDiagonal(1,grid);
         boolean oWinsByDiagonal = testDiagonal(0,grid);
 
+
         // Test rows
         boolean xWinsByRow = false;
-        boolean oWinsByRow = false;
         for (int i = 0; i < grid.length; i++) {
             xWinsByRow = testRow(i, 1, grid);
+            if (xWinsByRow) break;
+        }
+
+        boolean oWinsByRow = false;
+        for (int i = 0; i < grid.length; i++) {
             oWinsByRow = testRow(i, 0, grid);
-            if (xWinsByRow || oWinsByRow) break;
+            if (oWinsByRow) break;
         }
 
         // Test columns
