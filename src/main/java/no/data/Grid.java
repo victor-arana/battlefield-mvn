@@ -25,27 +25,24 @@ class Grid {
         return nWinsByRow;
     }
 
+    private boolean testColumns(Integer n, Integer[][] grid) {
+        boolean nWinsByColumn = false;
+        for (int j = 0; j < grid[0].length; j++) {
+            nWinsByColumn = testColumn(j, n, grid);
+            if (nWinsByColumn) break;
+        }
+        return nWinsByColumn;
+    }
+
     void analizeState() {
-        // Test diagonals
         boolean xWinsByDiagonal = testDiagonal(1,grid);
         boolean oWinsByDiagonal = testDiagonal(0,grid);
 
-        // Test rows
         boolean xWinsByRow = testRows(1, grid);
         boolean oWinsByRow = testRows(0, grid);
 
-        // Test columns
-        boolean xWinsByColumn = false;
-        for (int j = 0; j < grid[0].length; j++) {
-            xWinsByColumn = testColumn(j, 1, grid);
-            if (xWinsByColumn) break;
-        }
-
-        boolean oWinsByColumn = false;
-        for (int j = 0; j < grid[0].length; j++) {
-            oWinsByColumn  = testColumn(j, 0, grid);
-            if (oWinsByColumn) break;
-        }
+        boolean xWinsByColumn = testColumns(1, grid);
+        boolean oWinsByColumn = testColumns(0, grid);
 
         boolean xWins = xWinsByDiagonal || xWinsByRow || xWinsByColumn;
         boolean oWins = oWinsByDiagonal || oWinsByRow || oWinsByColumn;
@@ -66,6 +63,7 @@ class Grid {
         }
 
     }
+
 
 
 
