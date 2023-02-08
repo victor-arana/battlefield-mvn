@@ -3,10 +3,18 @@ package no.data;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Represents a grid for a Tic-Tac-Toe game. It models the grid
+ * using the Integer values 0 for O, 1 for X and null for an
+ * empty cell.
+ */
 class Grid {
+
+    // Model the grid as two-dimensional array
     Integer[][] grid;
     private GridState state;
 
+    // Initialize a 3x3 grid as default
     Grid(){
         this(3,3);
     }
@@ -16,16 +24,18 @@ class Grid {
         grid = new Integer[rows][columns];
     }
 
-    private boolean testRows(Integer n, Integer[][] grid) {
+    // Checks if a player has won by making a line of moves in a row.
+    private boolean checkRows(Integer n, Integer[][] grid) {
         boolean nWinsByRow = false;
         for (int i = 0; i < grid.length; i++) {
-            nWinsByRow = testRow(i, n, grid);
+            nWinsByRow = checkRow(i, n, grid);
             if (nWinsByRow) break;
         }
         return nWinsByRow;
     }
 
-    private boolean testColumns(Integer n, Integer[][] grid) {
+    // Checks if a player has won by making a line of moves in a column.
+    private boolean checkColumns(Integer n, Integer[][] grid) {
         boolean nWinsByColumn = false;
         for (int j = 0; j < grid[0].length; j++) {
             nWinsByColumn = testColumn(j, n, grid);
@@ -38,11 +48,11 @@ class Grid {
         boolean xWinsByDiagonal = testDiagonal(1,grid);
         boolean oWinsByDiagonal = testDiagonal(0,grid);
 
-        boolean xWinsByRow = testRows(1, grid);
-        boolean oWinsByRow = testRows(0, grid);
+        boolean xWinsByRow = checkRows(1, grid);
+        boolean oWinsByRow = checkRows(0, grid);
 
-        boolean xWinsByColumn = testColumns(1, grid);
-        boolean oWinsByColumn = testColumns(0, grid);
+        boolean xWinsByColumn = checkColumns(1, grid);
+        boolean oWinsByColumn = checkColumns(0, grid);
 
         boolean xWins = xWinsByDiagonal || xWinsByRow || xWinsByColumn;
         boolean oWins = oWinsByDiagonal || oWinsByRow || oWinsByColumn;
@@ -114,7 +124,7 @@ class Grid {
                 && (a[0][c].equals(i) && a[1][c].equals(i) && a[2][c].equals(i));
     }
 
-    boolean testRow(int row, Integer i, Integer[][] a) {
+    boolean checkRow(int row, Integer i, Integer[][] a) {
         boolean rowIsFull = a[row][0] != null && a[row][1] != null && a[row][2] != null;
         return rowIsFull
                 && (a[row][0].equals(i) && a[row][1].equals(i) && a[row][2].equals(i));
