@@ -16,25 +16,23 @@ class Grid {
         grid = new Integer[rows][columns];
     }
 
+    private boolean testRows(Integer n, Integer[][] grid) {
+        boolean nWinsByRow = false;
+        for (int i = 0; i < grid.length; i++) {
+            nWinsByRow = testRow(i, n, grid);
+            if (nWinsByRow) break;
+        }
+        return nWinsByRow;
+    }
 
     void analizeState() {
         // Test diagonals
         boolean xWinsByDiagonal = testDiagonal(1,grid);
         boolean oWinsByDiagonal = testDiagonal(0,grid);
 
-
         // Test rows
-        boolean xWinsByRow = false;
-        for (int i = 0; i < grid.length; i++) {
-            xWinsByRow = testRow(i, 1, grid);
-            if (xWinsByRow) break;
-        }
-
-        boolean oWinsByRow = false;
-        for (int i = 0; i < grid.length; i++) {
-            oWinsByRow = testRow(i, 0, grid);
-            if (oWinsByRow) break;
-        }
+        boolean xWinsByRow = testRows(1, grid);
+        boolean oWinsByRow = testRows(0, grid);
 
         // Test columns
         boolean xWinsByColumn = false;
@@ -68,6 +66,8 @@ class Grid {
         }
 
     }
+
+
 
     private boolean thereIsABigDifference(){
         return Math.abs(count(0) - count(1)) >= 2;
