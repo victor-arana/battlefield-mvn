@@ -48,7 +48,7 @@ class Grid {
         boolean oWins = oWinsByDiagonal || oWinsByRow || oWinsByColumn;
         boolean gameIsNotFinished = !xWins && !oWins && gridHasEmptyCells(grid);
         boolean draw = !xWins && !oWins && !gridHasEmptyCells(grid);
-        boolean impossible = (xWins && oWins) || thereAreMoreXthanOs() || thereAreMoreOthanXs() ;
+        boolean impossible = (xWins && oWins) || thereIsABigDifference() ;
 
         if (impossible){
             this.state = GridState.IMPOSSIBLE;
@@ -64,35 +64,20 @@ class Grid {
 
     }
 
-    private boolean thereAreMoreOthanXs() {
-        return Math.abs(countO() - countX()) >= 2;
+    private boolean thereIsABigDifference(){
+        return Math.abs(count(0) - count(1)) >= 2;
     }
 
-    private boolean thereAreMoreXthanOs() {
-        return Math.abs(countX() - countO()) >= 2;
-    }
-
-    private int countO() {
-        int oCount = 0;
+    private int count(Integer n) {
+        int count = 0;
         for(Integer[] row: grid) {
             for(Integer slot: row) {
-                if (slot != null && slot.equals(0)) {
-                    oCount++;
+                if (slot != null && slot.equals(n)) {
+                    count++;
                 }
             }
         }
-        return oCount;
-    }
-    private int countX() {
-        int xCount = 0;
-        for(Integer[] row: grid) {
-            for(Integer slot: row) {
-                if (slot != null && slot.equals(1)) {
-                    xCount++;
-                }
-            }
-        }
-        return xCount;
+        return count;
     }
 
     boolean gridHasEmptyCells(Integer[][] grid){
