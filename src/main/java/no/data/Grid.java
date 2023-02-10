@@ -243,4 +243,23 @@ class Grid {
     public GridState getState() {
         return this.state;
     }
+
+    public void readMove() {
+        Scanner scanner = new Scanner(System.in);
+        boolean invalidMove = true;
+        while (invalidMove) {
+            String move = scanner.nextLine();
+            int row = 0;
+            int column = 0;
+            invalidMove = isMoveValid(row, column);
+        }
+    }
+
+    boolean isMoveValid(int row, int column) {
+        return false;
+    }
+
+    public boolean isInputMoveValid(String inputMove) {
+        return false;
+    }
 }

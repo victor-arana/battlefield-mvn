@@ -95,4 +95,29 @@ public class GridTest {
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testOccupiedCellMove() {
+        var grid = new Grid();
+        grid.parseState("_XXOO_OX_");
+        int row = 3;
+        int column = 1;
+        grid.isMoveValid(row, column);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRowAndColumn() {
+        var grid = new Grid();
+        grid.parseState("_XXOO_OX_");
+        int row = 4;
+        int column = 1;
+        grid.isMoveValid(row, column);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidInput() {
+        var grid = new Grid();
+        grid.parseState("_XXOO_OX_");
+        String inputMove = "one";
+        grid.isInputMoveValid(inputMove);
+    }
 }
