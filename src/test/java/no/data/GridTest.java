@@ -101,7 +101,12 @@ public class GridTest {
         grid.parseState("_XXOO_OX_");
         int row = 3;
         int column = 1;
-        grid.isMoveValid(row, column);
+        try {
+            grid.isMoveValid(row, column);
+        } catch (Exception e) {
+            assertEquals("This Cell is occupied! Choose another one!", e.getMessage());
+            throw e;
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)

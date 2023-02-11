@@ -256,18 +256,23 @@ class Grid {
     }
 
     boolean isMoveValid(int row, int column) {
-        boolean validMove = false;
         int i = row - 1;
         int j = column - 1;
         // Test valid cell
+        boolean validCell = false;
         boolean validRow = i >= 0 && i < grid.length;
         boolean validColumn = j >= 0 && j < grid[0].length;
         if (validRow && validColumn) {
-            validMove = true;
+            validCell = true;
         } else {
             throw new IllegalArgumentException("Coordinates should be from 1 to 3!");
         }
-        return validMove;
+        // Check for an occupied cell
+        boolean isCellOccupied = grid[i][j] != null;
+        if (isCellOccupied) {
+            throw new IllegalArgumentException("This Cell is occupied! Choose another one!");
+        }
+        return validCell && !isCellOccupied;
     }
 
     public boolean isInputMoveValid(String inputMove) {
