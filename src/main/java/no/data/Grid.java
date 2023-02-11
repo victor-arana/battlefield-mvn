@@ -256,7 +256,18 @@ class Grid {
     }
 
     boolean isMoveValid(int row, int column) {
-        return false;
+        boolean validMove = false;
+        int i = row - 1;
+        int j = column - 1;
+        // Test valid cell
+        boolean validRow = i >= 0 && i < grid.length;
+        boolean validColumn = j >= 0 && j < grid[0].length;
+        if (validRow && validColumn) {
+            validMove = true;
+        } else {
+            throw new IllegalArgumentException("Illegal move");
+        }
+        return validMove;
     }
 
     public boolean isInputMoveValid(String inputMove) {
