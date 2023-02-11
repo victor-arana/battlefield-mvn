@@ -265,7 +265,7 @@ class Grid {
         if (validRow && validColumn) {
             validMove = true;
         } else {
-            throw new IllegalArgumentException("Illegal move");
+            throw new IllegalArgumentException("Coordinates should be from 1 to 3!");
         }
         return validMove;
     }
