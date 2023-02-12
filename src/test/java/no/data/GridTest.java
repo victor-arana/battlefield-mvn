@@ -127,7 +127,12 @@ public class GridTest {
     public void testInvalidInput() {
         var grid = new Grid();
         grid.parseState("_XXOO_OX_");
-        String inputMove = "one";
-        grid.isInputMoveValid(inputMove);
+        String inputMove = "one one";
+        try {
+            grid.isInputMoveValid(inputMove);
+        } catch (Exception e) {
+            assertEquals("You should enter numbers!", e.getMessage());
+            throw e;
+        }
     }
 }

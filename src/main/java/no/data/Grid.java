@@ -1,5 +1,6 @@
 package no.data;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -276,6 +277,14 @@ class Grid {
     }
 
     public boolean isInputMoveValid(String inputMove) {
-        return false;
+        String[] coordinates = inputMove.split(" ");
+        System.out.println(Arrays.toString(coordinates));
+        try {
+            Integer.parseInt(coordinates[0]);
+            Integer.parseInt(coordinates[1]);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("You should enter numbers!");
+        }
+        return true;
     }
 }
