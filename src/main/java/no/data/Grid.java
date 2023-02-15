@@ -253,26 +253,41 @@ class Grid {
 
     public void readMoves() {
         boolean validMove = false;
-        while(!validMove) {
+        Integer player = 1;
+        while(!validMove || getState().equals(GridState.GAME_NOT_FINISHED)) {
             try {
                 Scanner scanner = new Scanner(System.in);
                 String input = scanner.nextLine();
                 validMove = isInputValid(input) && isMoveValid(input);
                 if(validMove) {
-                    makeMove(input);
+                    makeMove(input, player);
+                    analizeGame();
+                    player = switchPlayer(player);
                     printGrid();
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+        printState();
     }
 
-    private void makeMove(String input) {
+    private Integer switchPlayer(Integer player) {
+        if (player.equals(1)){
+            player = 0;
+        } else if (player.equals(0)){
+            player = 1;
+        } else {
+            player = null;
+        }
+        return player;
+    }
+
+    private void makeMove(String input, Integer player) {
         String[] coordinates = input.split(" ");
         int i = Integer.parseInt(coordinates[0]) - 1;
         int j = Integer.parseInt(coordinates[1]) - 1;
-        this.grid[i][j] = 1;
+        this.grid[i][j] = player;
     }
 
     boolean isMoveValid(String input) {
