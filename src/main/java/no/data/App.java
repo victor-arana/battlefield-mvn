@@ -6,7 +6,7 @@ public class App
     {
         var grid = new Grid();
         grid.readGame();
-        grid.analizeState();
+        grid.analizeGame();
         grid.printGrid();
         grid.readMoves();
     }

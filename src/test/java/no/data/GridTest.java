@@ -10,7 +10,7 @@ public class GridTest {
     public void x_should_win_by_row() {
         var grid = new Grid();
         grid.parseGame("XXXOO__O_");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.X_WINS,grid.getState());
     }
 
@@ -18,7 +18,7 @@ public class GridTest {
     public void x_should_win_by_column() {
         var grid = new Grid();
         grid.parseGame("X_XOOXO_X");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.X_WINS, grid.getState());
     }
 
@@ -26,7 +26,7 @@ public class GridTest {
     public void x_should_win_by_diagonal() {
         var grid = new Grid();
         grid.parseGame("XOXOXOXXO");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.X_WINS,grid.getState());
 
     }
@@ -35,7 +35,7 @@ public class GridTest {
     public void o_should_win_by_row(){
         var grid = new Grid();
         grid.parseGame("X__OOOX_X");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.O_WINS, grid.getState());
     }
 
@@ -43,7 +43,7 @@ public class GridTest {
     public void o_should_win_by_column(){
         var grid = new Grid();
         grid.parseGame("XOOOXOXXO");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.O_WINS, grid.getState());
     }
 
@@ -51,7 +51,7 @@ public class GridTest {
     public void o_should_win_by_diagonal() {
         var grid = new Grid();
         grid.parseGame("X_OXO_O_X");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.O_WINS, grid.getState());
     }
 
@@ -59,7 +59,7 @@ public class GridTest {
     public void state_should_be_draw() {
         var grid = new Grid();
         grid.parseGame("XOXOOXXXO");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.DRAW, grid.getState());
     }
 
@@ -67,7 +67,7 @@ public class GridTest {
     public void state_should_be_not_finished() {
         var grid = new Grid();
         grid.parseGame("XO_OOX_X_");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.GAME_NOT_FINISHED, grid.getState());
     }
 
@@ -75,7 +75,7 @@ public class GridTest {
     public void state_should_be_impossible_01() {
         var grid = new Grid();
         grid.parseGame("XO_XO_XOX");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
 
@@ -83,7 +83,7 @@ public class GridTest {
     public void state_should_be_impossible_02() {
         var grid = new Grid();
         grid.parseGame("_OOOO_X_X");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
 
@@ -91,7 +91,7 @@ public class GridTest {
     public void state_should_be_impossible_03() {
         var grid = new Grid();
         grid.parseGame("_O_X__X_X");
-        grid.analizeState();
+        grid.analizeGame();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
 

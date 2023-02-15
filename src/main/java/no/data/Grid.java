@@ -48,7 +48,7 @@ class Grid {
         return nWinsByColumn;
     }
 
-    void analizeState() {
+    GridState analizeGame() {
         boolean xWinsByDiagonal = checkDiagonal(1,grid);
         boolean oWinsByDiagonal = checkDiagonal(0,grid);
 
@@ -64,18 +64,20 @@ class Grid {
         boolean draw = !xWins && !oWins && !gridHasEmptyCells(grid);
         boolean impossible = (xWins && oWins) || thereIsABigDifference() ;
 
+        GridState state = GridState.GAME_NOT_FINISHED;
         if (impossible){
-            this.state = GridState.IMPOSSIBLE;
+            state = GridState.IMPOSSIBLE;
         } else if (xWins && !oWins && !gameIsNotFinished && !draw && !impossible) {
-            this.state = GridState.X_WINS;
+            state = GridState.X_WINS;
         } else if (!xWins && oWins && !gameIsNotFinished && !draw && !impossible) {
-            this.state = GridState.O_WINS;
+            state = GridState.O_WINS;
         } else if (gameIsNotFinished) {
-            this.state = GridState.GAME_NOT_FINISHED;
+            state = GridState.GAME_NOT_FINISHED;
         } else if (draw) {
-            this.state = GridState.DRAW;
+            state = GridState.DRAW;
         }
-
+        this.state = state;
+        return state;
     }
 
 
