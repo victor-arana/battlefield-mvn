@@ -99,10 +99,9 @@ public class GridTest {
     public void testOccupiedCellMove() {
         var grid = new Grid();
         grid.parseState("_XXOO_OX_");
-        int row = 3;
-        int column = 1;
+        String input = "3 1";
         try {
-            grid.isMoveValid(row, column);
+            grid.isMoveValid(input);
         } catch (Exception e) {
             assertEquals("This Cell is occupied! Choose another one!", e.getMessage());
             throw e;
@@ -113,10 +112,9 @@ public class GridTest {
     public void testInvalidRowAndColumn() {
         var grid = new Grid();
         grid.parseState("_XXOO_OX_");
-        int row = 4;
-        int column = 1;
+        String input = "4 1";
         try {
-            grid.isMoveValid(row, column);
+            grid.isMoveValid(input);
         } catch (Exception e) {
             assertEquals("Coordinates should be from 1 to 3!", e.getMessage());
             throw e;

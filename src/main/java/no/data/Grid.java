@@ -199,28 +199,7 @@ class Grid {
     }
 
     void printState() {
-        System.out.println("---------");
-        for(int i = 0; i < grid.length; i++) {
-            System.out.print("| ");
-            for(int j = 0; j < grid[i].length; j++) {
-                String character = null;
-                if (grid[i][j] == null) {
-                    character = "_";
-                } else if ((int) grid[i][j] == 0) {
-                    character = "O";
-                } else if ((int) grid[i][j] == 1) {
-                    character = "X";
-                } else {
-                    character = "_";
-                }
-                System.out.print(character + " ");
-            }
-            System.out.printf("| %n");
-        }
-        System.out.println("---------");
-
         String state = "";
-        // Print state
         switch(getState()) {
             case X_WINS:
                 state = "X wins";
@@ -241,24 +220,64 @@ class Grid {
         System.out.println(state);
     }
 
+    void printGrid(){
+        System.out.println("---------");
+        for(int i = 0; i < grid.length; i++) {
+            System.out.print("| ");
+            for(int j = 0; j < grid[i].length; j++) {
+                String character = null;
+                if (grid[i][j] == null) {
+                    character = "_";
+                } else if ((int) grid[i][j] == 0) {
+                    character = "O";
+                } else if ((int) grid[i][j] == 1) {
+                    character = "X";
+                } else {
+                    character = "_";
+                }
+                System.out.print(character + " ");
+            }
+            System.out.printf("| %n");
+        }
+        System.out.println("---------");
+    }
+
     public GridState getState() {
         return this.state;
     }
 
     public void readMove() {
+        System.out.println("Reading move");
         Scanner scanner = new Scanner(System.in);
         boolean invalidMove = true;
         while (invalidMove) {
             String move = scanner.nextLine();
-            int row = 0;
-            int column = 0;
-            invalidMove = isMoveValid(row, column);
+            String input = "0 0";
+            invalidMove = isMoveValid(input);
         }
     }
 
-    boolean isMoveValid(int row, int column) {
-        int i = row - 1;
-        int j = column - 1;
+    public void readMoves() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        boolean validMove = isInputMoveValid(input) && isMoveValid(input);
+        if(validMove) {
+            makeMove(input);
+            printGrid();
+        }
+    }
+
+    private void makeMove(String input) {
+        String[] coordinates = input.split(" ");
+        int i = Integer.parseInt(coordinates[0]) - 1;
+        int j = Integer.parseInt(coordinates[1]) - 1;
+        this.grid[i][j] = 1;
+    }
+
+    boolean isMoveValid(String input) {
+        String[] coordinates = input.split(" ");
+        int i = Integer.parseInt(coordinates[0]) - 1;
+        int j = Integer.parseInt(coordinates[1]) - 1;
         // Test valid cell
         boolean validCell = false;
         boolean validRow = i >= 0 && i < grid.length;
@@ -278,7 +297,6 @@ class Grid {
 
     public boolean isInputMoveValid(String inputMove) {
         String[] coordinates = inputMove.split(" ");
-        System.out.println(Arrays.toString(coordinates));
         try {
             Integer.parseInt(coordinates[0]);
             Integer.parseInt(coordinates[1]);
