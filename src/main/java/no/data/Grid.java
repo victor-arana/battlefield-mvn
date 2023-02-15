@@ -246,17 +246,6 @@ class Grid {
         return this.state;
     }
 
-    public void readMove() {
-        System.out.println("Reading move");
-        Scanner scanner = new Scanner(System.in);
-        boolean invalidMove = true;
-        while (invalidMove) {
-            String move = scanner.nextLine();
-            String input = "0 0";
-            invalidMove = isMoveValid(input);
-        }
-    }
-
     public void readMoves() {
         boolean validMove = false;
         while(!validMove) {
