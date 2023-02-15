@@ -1,6 +1,5 @@
 package no.data;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,15 +38,15 @@ class Grid {
     private boolean checkColumns(Integer n, Integer[][] grid) {
         boolean nWinsByColumn = false;
         for (int j = 0; j < grid[0].length; j++) {
-            nWinsByColumn = testColumn(j, n, grid);
+            nWinsByColumn = checkColumn(j, n, grid);
             if (nWinsByColumn) break;
         }
         return nWinsByColumn;
     }
 
     void analizeState() {
-        boolean xWinsByDiagonal = testDiagonal(1,grid);
-        boolean oWinsByDiagonal = testDiagonal(0,grid);
+        boolean xWinsByDiagonal = checkDiagonal(1,grid);
+        boolean oWinsByDiagonal = checkDiagonal(0,grid);
 
         boolean xWinsByRow = checkRows(1, grid);
         boolean oWinsByRow = checkRows(0, grid);
@@ -79,10 +78,10 @@ class Grid {
 
 
     private boolean thereIsABigDifference(){
-        return Math.abs(count(0) - count(1)) >= 2;
+        return Math.abs(countOccupiedCells(0) - countOccupiedCells(1)) >= 2;
     }
 
-    private int count(Integer n) {
+    private int countOccupiedCells(Integer n) {
         int count = 0;
         for(Integer[] row: grid) {
             for(Integer slot: row) {
@@ -107,7 +106,7 @@ class Grid {
         return gridHasEmptyCells;
     }
 
-    boolean testDiagonal(Integer i, Integer[][] a) {
+    boolean checkDiagonal(Integer i, Integer[][] a) {
         boolean backSlashIsFull  = a[0][0] != null && a[1][1] != null && a[2][2] != null;
         boolean backSlashWins = backSlashIsFull
                 && (a[0][0].equals(i) && a[0][0].equals(a[1][1]) && a[0][0].equals(a[2][2]));
@@ -119,7 +118,7 @@ class Grid {
 
     }
 
-    boolean testColumn(int c, Integer i, Integer[][] a) {
+    boolean checkColumn(int c, Integer i, Integer[][] a) {
         boolean isFull = a[0][c] != null && a[1][c] != null && a[2][c] != null;
         return isFull
                 && (a[0][c].equals(i) && a[1][c].equals(i) && a[2][c].equals(i));
@@ -131,10 +130,10 @@ class Grid {
                 && (a[row][0].equals(i) && a[row][1].equals(i) && a[row][2].equals(i));
     }
 
-    void readState() {
+    void readGame() {
         Scanner scanner = new Scanner(System.in);
         String state = scanner.nextLine();
-        grid = parseState(state);
+        grid = parseGame(state);
     }
 
     Character[][] unflatMatrix(int m, int n, char[] a){
@@ -154,26 +153,26 @@ class Grid {
     }
 
 
-    Integer[][] parseState(String state) {
+    Integer[][] parseGame(String state) {
         Character[][] stateMatrix  = unflatMatrix(3, 3, state.toCharArray());
-        this.grid = parseStateMatrix(stateMatrix);
-        return parseStateMatrix(stateMatrix);
+        this.grid = parseGameMatrix(stateMatrix);
+        return parseGameMatrix(stateMatrix);
     }
 
-    Integer[][] parseStateMatrix(Character[][] stateMatrix) {
+    Integer[][] parseGameMatrix(Character[][] stateMatrix) {
         int m = stateMatrix.length;
         int n = stateMatrix[0].length;
 
         Integer[][] result = new Integer[m][n];
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n;j++) {
-                result[i][j] = parseSlot(stateMatrix[i][j]);
+                result[i][j] = parseCell(stateMatrix[i][j]);
             }
         }
         return result;
     }
 
-    Integer parseSlot(Character character) {
+    Integer parseCell(Character character) {
         Integer value = 0;
         switch (character) {
             case 'O':
@@ -252,7 +251,7 @@ class Grid {
             try {
                 Scanner scanner = new Scanner(System.in);
                 String input = scanner.nextLine();
-                validMove = isInputMoveValid(input) && isMoveValid(input);
+                validMove = isInputValid(input) && isMoveValid(input);
                 if(validMove) {
                     makeMove(input);
                     printGrid();
@@ -291,7 +290,7 @@ class Grid {
         return validCell && !isCellOccupied;
     }
 
-    public boolean isInputMoveValid(String inputMove) {
+    public boolean isInputValid(String inputMove) {
         String[] coordinates = inputMove.split(" ");
         try {
             Integer.parseInt(coordinates[0]);

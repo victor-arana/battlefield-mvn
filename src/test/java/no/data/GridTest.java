@@ -9,7 +9,7 @@ public class GridTest {
     @Test
     public void x_should_win_by_row() {
         var grid = new Grid();
-        grid.parseState("XXXOO__O_");
+        grid.parseGame("XXXOO__O_");
         grid.analizeState();
         assertEquals(GridState.X_WINS,grid.getState());
     }
@@ -17,7 +17,7 @@ public class GridTest {
     @Test
     public void x_should_win_by_column() {
         var grid = new Grid();
-        grid.parseState("X_XOOXO_X");
+        grid.parseGame("X_XOOXO_X");
         grid.analizeState();
         assertEquals(GridState.X_WINS, grid.getState());
     }
@@ -25,7 +25,7 @@ public class GridTest {
     @Test
     public void x_should_win_by_diagonal() {
         var grid = new Grid();
-        grid.parseState("XOXOXOXXO");
+        grid.parseGame("XOXOXOXXO");
         grid.analizeState();
         assertEquals(GridState.X_WINS,grid.getState());
 
@@ -34,7 +34,7 @@ public class GridTest {
     @Test
     public void o_should_win_by_row(){
         var grid = new Grid();
-        grid.parseState("X__OOOX_X");
+        grid.parseGame("X__OOOX_X");
         grid.analizeState();
         assertEquals(GridState.O_WINS, grid.getState());
     }
@@ -42,7 +42,7 @@ public class GridTest {
     @Test
     public void o_should_win_by_column(){
         var grid = new Grid();
-        grid.parseState("XOOOXOXXO");
+        grid.parseGame("XOOOXOXXO");
         grid.analizeState();
         assertEquals(GridState.O_WINS, grid.getState());
     }
@@ -50,7 +50,7 @@ public class GridTest {
     @Test
     public void o_should_win_by_diagonal() {
         var grid = new Grid();
-        grid.parseState("X_OXO_O_X");
+        grid.parseGame("X_OXO_O_X");
         grid.analizeState();
         assertEquals(GridState.O_WINS, grid.getState());
     }
@@ -58,7 +58,7 @@ public class GridTest {
     @Test
     public void state_should_be_draw() {
         var grid = new Grid();
-        grid.parseState("XOXOOXXXO");
+        grid.parseGame("XOXOOXXXO");
         grid.analizeState();
         assertEquals(GridState.DRAW, grid.getState());
     }
@@ -66,7 +66,7 @@ public class GridTest {
     @Test
     public void state_should_be_not_finished() {
         var grid = new Grid();
-        grid.parseState("XO_OOX_X_");
+        grid.parseGame("XO_OOX_X_");
         grid.analizeState();
         assertEquals(GridState.GAME_NOT_FINISHED, grid.getState());
     }
@@ -74,7 +74,7 @@ public class GridTest {
     @Test
     public void state_should_be_impossible_01() {
         var grid = new Grid();
-        grid.parseState("XO_XO_XOX");
+        grid.parseGame("XO_XO_XOX");
         grid.analizeState();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
@@ -82,7 +82,7 @@ public class GridTest {
     @Test
     public void state_should_be_impossible_02() {
         var grid = new Grid();
-        grid.parseState("_OOOO_X_X");
+        grid.parseGame("_OOOO_X_X");
         grid.analizeState();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
@@ -90,7 +90,7 @@ public class GridTest {
     @Test
     public void state_should_be_impossible_03() {
         var grid = new Grid();
-        grid.parseState("_O_X__X_X");
+        grid.parseGame("_O_X__X_X");
         grid.analizeState();
         assertEquals(GridState.IMPOSSIBLE ,grid.getState());
     }
@@ -98,7 +98,7 @@ public class GridTest {
     @Test(expected = IllegalArgumentException.class)
     public void testOccupiedCellMove() {
         var grid = new Grid();
-        grid.parseState("_XXOO_OX_");
+        grid.parseGame("_XXOO_OX_");
         String input = "3 1";
         try {
             grid.isMoveValid(input);
@@ -111,7 +111,7 @@ public class GridTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidRowAndColumn() {
         var grid = new Grid();
-        grid.parseState("_XXOO_OX_");
+        grid.parseGame("_XXOO_OX_");
         String input = "4 1";
         try {
             grid.isMoveValid(input);
@@ -124,10 +124,10 @@ public class GridTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidInput() {
         var grid = new Grid();
-        grid.parseState("_XXOO_OX_");
+        grid.parseGame("_XXOO_OX_");
         String inputMove = "one one";
         try {
-            grid.isInputMoveValid(inputMove);
+            grid.isInputValid(inputMove);
         } catch (Exception e) {
             assertEquals("You should enter numbers!", e.getMessage());
             throw e;
