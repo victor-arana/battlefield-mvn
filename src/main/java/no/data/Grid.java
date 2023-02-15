@@ -10,7 +10,11 @@ import java.util.Scanner;
  */
 class Grid {
 
-    // Model the grid as two-dimensional array
+    // Model the grid as two-dimensional array of integers
+    // each integer represents a player
+    // 1: X player
+    // 0: O player
+    // null: Empty cell
     Integer[][] grid;
     private GridState state;
 
