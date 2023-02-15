@@ -258,12 +258,19 @@ class Grid {
     }
 
     public void readMoves() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        boolean validMove = isInputMoveValid(input) && isMoveValid(input);
-        if(validMove) {
-            makeMove(input);
-            printGrid();
+        boolean validMove = false;
+        while(!validMove) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                String input = scanner.nextLine();
+                validMove = isInputMoveValid(input) && isMoveValid(input);
+                if(validMove) {
+                    makeMove(input);
+                    printGrid();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -290,7 +297,7 @@ class Grid {
         // Check for an occupied cell
         boolean isCellOccupied = grid[i][j] != null;
         if (isCellOccupied) {
-            throw new IllegalArgumentException("This Cell is occupied! Choose another one!");
+            throw new IllegalArgumentException("This cell is occupied! Choose another one!");
         }
         return validCell && !isCellOccupied;
     }

@@ -103,7 +103,7 @@ public class GridTest {
         try {
             grid.isMoveValid(input);
         } catch (Exception e) {
-            assertEquals("This Cell is occupied! Choose another one!", e.getMessage());
+            assertEquals("This cell is occupied! Choose another one!", e.getMessage());
             throw e;
         }
     }
